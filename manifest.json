@@ -1,17 +1,16 @@
 {
-    "name": "فروشگاه من",
-    "short_name": "فروشگاه",
-    "start_url": "./index.html",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#1976d2",
-    "icons": [
-      {
-        "src": "icon.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      }
-    ],
-    "lang": "fa"
-  }
-  
+  "name": "اسکنر بارکد",
+  "short_name": "اسکنر",
+  "description": "اپلیکیشن اسکن بارکد ساده",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 128x128 256x256",
+      "type": "image/x-icon"
+    }
+  ]
+}
