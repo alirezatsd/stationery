@@ -1,0 +1,15 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    direction: rtl;
+    background: #f4f4f4;
+    padding: 2rem;
+  }
+  
+  button {
+    font-size: 1.2rem;
+    padding: 1rem;
+    margin: 1rem;
+    cursor: pointer;
+  }
+  

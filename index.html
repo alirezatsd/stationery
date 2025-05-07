@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>صندوق فروشگاهی</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 1rem;
+      direction: rtl;
+      max-width: 500px;
+      margin: auto;
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 1rem;
+    }
+    ul {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      list-style: none;
+    }
+    li {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+    video {
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>➕ افزودن محصول جدید</h2>
+
+  <input type="text" id="productName" placeholder="نام محصول" />
+  <input type="number" id="productPrice" placeholder="قیمت (تومان)" />
+  <input type="text" id="productCategory" placeholder="دسته‌بندی" />
+  <input type="text" id="productBarcode" placeholder="بارکد محصول" />
+  <button onclick="startScanner()">📷 اسکن بارکد</button>
+  <video id="scanner" width="100%" style="display: none;"></video>
+  <button onclick="addProduct()">✅ افزودن به انبار</button>
+
+  <hr />
+
+  <h3>📦 لیست محصولات</h3>
+  <ul id="productList"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>
