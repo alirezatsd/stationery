@@ -22,11 +22,20 @@ form.addEventListener("submit", (e) => {
 });
 
 function renderProducts() {
-  list.innerHTML = "";
-  products.forEach((p, i) => {
-    const li = document.createElement("li");
-    li.textContent = `📦 ${p.name} (${p.category}) - 💰 ${p.price} تومان - موجودی: ${p.stock} - بارکد: ${p.barcode}`;
-    list.appendChild(li);
+  list.innerHTML = "";  // Clear the current list
+
+  products.forEach((product) => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${product.name}</td>
+      <td>${product.price} تومان</td>
+      <td>${product.category}</td>
+      <td>${product.stock}</td>
+      <td>${product.barcode}</td>
+    `;
+
+    list.appendChild(tr);
   });
 }
 
