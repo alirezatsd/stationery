@@ -1,67 +1,94 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>اسکنر بارکد</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-  <style>
-    /* استایل برای بخش نمایش ویدیو دوربین */
-    #barcode-scanner {
-      width: 100%;
-      height: 400px;
-      background-color: #000;
-    }
-
-    /* استایل برای صفحه */
-    body {
-      font-family: 'Arial', sans-serif;
-      direction: rtl;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-
-    #startScanButton {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      margin-top: 20px;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    #startScanButton:hover {
-      background-color: #45a049;
-    }
-
-    #barcodeResult {
-      font-size: 18px;
-      color: #333;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اسکنر بارکد</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            direction: rtl;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        #reader {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            background-color: #000;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
-  <h1>اسکنر بارکد</h1>
+    <h1>اسکنر بارکد</h1>
+    <button id="startButton">شروع اسکن</button>
 
-  <!-- نمایش دوربین -->
-  <div id="barcode-scanner"></div>
+    <!-- اینجا دوربین اسکنر بارکد نمایش داده می‌شود -->
+    <div id="reader"></div>
 
-  <!-- دکمه شروع اسکن -->
-  <button id="startScanButton">شروع اسکن</button>
+    <!-- اضافه کردن اسکریپت های مورد نیاز -->
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 
-  <!-- نمایش بارکد اسکن شده -->
-  <p>بارکد اسکن شده: <span id="barcodeResult">هیچ بارکدی اسکن نشده</span></p>
+    <script>
+        // متغیر برای چک کردن وضعیت اسکن
+        let isScanning = false;
 
-  <!-- اضافه کردن فایل جاوا اسکریپت -->
-  <script src="script.js"></script>
+        // ایجاد نمونه Html5Qrcode برای استفاده در اسکن
+        let html5QrCode = new Html5Qrcode("reader");
+
+        // وقتی دکمه "شروع/توقف اسکن" کلیک می‌شود
+        document.getElementById("startButton").addEventListener("click", function() {
+            if (!isScanning) {
+                // شروع اسکن
+                html5QrCode.start(
+                    { facingMode: "environment" }, // استفاده از دوربین پشت گوشی
+                    {
+                        fps: 10,  // سرعت فریم (Frame per Second)
+                        qrbox: 250,  // اندازه جعبه اسکن
+                    },
+                    (decodedText, decodedResult) => {
+                        // وقتی بارکد اسکن شد
+                        console.log(`بارکد اسکن شده: ${decodedText}`);
+                        // اینجا می‌توانید هر عملیاتی که لازم دارید انجام دهید.
+                        // مثلا ذخیره کردن بارکد اسکن شده یا انجام عملیات خاص
+                    },
+                    (errorMessage) => {
+                        // نمایش خطای احتمالی در اسکن
+                        console.log(`خطا در اسکن: ${errorMessage}`);
+                    }
+                ).then(() => {
+                    isScanning = true; // تغییر وضعیت به اسکن فعال
+                }).catch(err => {
+                    console.error("خطا در شروع اسکن:", err);
+                });
+            } else {
+                // توقف اسکن
+                html5QrCode.stop().then(() => {
+                    isScanning = false; // تغییر وضعیت به اسکن غیرفعال
+                }).catch((err) => {
+                    console.error("خطا در توقف اسکن:", err);
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
