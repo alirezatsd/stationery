@@ -1,71 +1,54 @@
-let products = JSON.parse(localStorage.getItem('products')) || [];
+// بررسی اینکه آیا مرورگر از دسترسی به دوربین پشتیبانی می‌کنه
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  console.log("مرورگر شما از دسترسی به دوربین پشتیبانی می‌کند");
 
-function addProduct() {
-  const name = document.getElementById('productName').value.trim();
-  const price = document.getElementById('productPrice').value.trim();
-  const category = document.getElementById('productCategory').value.trim();
-  const barcode = document.getElementById('productBarcode').value.trim();
+  // درخواست دسترسی به دوربین
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(stream) {
+      // دوربین فعال شد، حالا می‌خواهیم ویدیو رو نمایش بدیم
+      console.log("دوربین فعال شد");
 
-  if (!name || !price || !category) {
-    alert('لطفاً تمام فیلدها را پر کنید');
-    return;
+      // شروع اسکن بارکد پس از فعال شدن دوربین
+      Quagga.init({
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector('#barcode-scanner'), // نمایش ویدیو داخل المنت
+          constraints: {
+            facingMode: "environment" // استفاده از دوربین پشت
+          }
+        },
+        decoder: {
+          readers: ["code_128_reader", "ean_reader", "ean_8_reader", "upc_reader"] // نوع بارکدهایی که می‌خواهیم شناسایی کنیم
+        }
+      }, function(err) {
+        if (err) {
+          console.log("خطا در راه‌اندازی اسکنر: ", err);
+          return;
+        }
+        Quagga.start(); // شروع اسکن
+      });
+
+      // در هنگام اسکن بارکد، مقدار بارکد شناسایی شده رو در صفحه نمایش بده
+      Quagga.onDetected(function(result) {
+        const barcode = result.codeResult.code;
+        document.getElementById('barcodeResult').innerText = barcode;
+        console.log("بارکد شناسایی شده: ", barcode);
+      });
+    })
+    .catch(function(err) {
+      console.log('خطا در دسترسی به دوربین:', err);
+    });
+} else {
+  console.log("مرورگر شما از دسترسی به دوربین پشتیبانی نمی‌کند.");
+}
+
+// شروع اسکن با دکمه
+document.getElementById('startScanButton').addEventListener('click', function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // درخواست دوباره برای استفاده از دوربین در صورت لزوم
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+      Quagga.start();
+    });
   }
-
-  products.push({ name, price, category, barcode });
-  localStorage.setItem('products', JSON.stringify(products));
-  renderProducts();
-
-  // پاک کردن فیلدها
-  document.getElementById('productName').value = '';
-  document.getElementById('productPrice').value = '';
-  document.getElementById('productCategory').value = '';
-  document.getElementById('productBarcode').value = '';
-}
-
-function renderProducts() {
-  const list = document.getElementById('productList');
-  list.innerHTML = '';
-
-  products.forEach((product, index) => {
-    const item = document.createElement('li');
-    item.textContent = `📦 ${product.name} | 💰 ${product.price} | 🗂️ ${product.category} | بارکد: ${product.barcode || '---'}`;
-    list.appendChild(item);
-  });
-}
-
-// فعال کردن اسکن بارکد
-function startScanner() {
-  const video = document.getElementById('scanner');
-  video.style.display = 'block';
-
-  Quagga.init({
-    inputStream: {
-      name: "Live",
-      type: "LiveStream",
-      target: video,
-      constraints: {
-        facingMode: "environment"
-      }
-    },
-    decoder: {
-      readers: ["ean_reader", "code_128_reader", "upc_reader"]
-    }
-  }, function (err) {
-    if (err) {
-      console.error(err);
-      alert("خطا در راه‌اندازی دوربین");
-      return;
-    }
-    Quagga.start();
-  });
-
-  Quagga.onDetected(function (data) {
-    const code = data.codeResult.code;
-    document.getElementById("productBarcode").value = code;
-    Quagga.stop();
-    video.style.display = 'none';
-  });
-}
-
-// نمایش محصولات در شروع
-renderProducts();
+});
