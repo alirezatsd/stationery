@@ -4,10 +4,13 @@
   flex-direction: column;
   gap: 15px;
   margin-bottom: 30px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .product-form label {
   font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .product-form input {
@@ -49,4 +52,13 @@
 
 #productTable th {
   background-color: #f8f9fa;
+}
+
+/* اضافه کردن استایل برای محصولات در لیست */
+#productList tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#productList tr:hover {
+  background-color: #ddd;
 }
