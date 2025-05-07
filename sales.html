@@ -1,1 +1,23 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>فروش</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🧾 فروش</h1>
+
+  <input type="text" id="barcodeInput" placeholder="اسکن یا وارد کردن بارکد" autofocus />
+  <button onclick="addByBarcode()">➕ افزودن</button>
+
+  <ul id="cartList"></ul>
+
+  <h2>💰 مجموع: <span id="totalPrice">۰</span> تومان</h2>
+  <button onclick="submitInvoice()">✅ ثبت فاکتور</button>
+
+  <script src="sale.js"></script>
+</body>
+</html>
 
