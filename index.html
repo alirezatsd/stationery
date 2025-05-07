@@ -1,49 +1,43 @@
+<!-- 📄 index.html — خانه (Dashboard) -->
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اسکنر بارکد</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        body {
-            font-family: 'Tahoma', sans-serif;
-            direction: rtl;
-            text-align: center;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        #reader {
-            width: 100%;
-            max-width: 500px;
-            height: 400px;
-            margin: 0 auto;
-            border: 1px solid #ccc;
-            background-color: #000;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خانه | فروشگاه من</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <header>
+    <h1>داشبورد فروشگاه</h1>
+  </header>
 
-    <h1>اسکنر بارکد</h1>
-    <button id="startButton">شروع اسکن</button>
+  <main>
+    <section class="stats">
+      <h2>آمار سریع</h2>
+      <ul>
+        <li>فروش امروز: <span id="today-sales">۰</span> تومان</li>
+        <li>کل فروش: <span id="total-sales">۰</span> تومان</li>
+        <li>محصولات با موجودی کم: <span id="low-stock-count">۰</span></li>
+      </ul>
+    </section>
 
-    <div id="reader"></div>
+    <section class="shortcuts">
+      <h2>میانبرها</h2>
+      <nav class="shortcut-links">
+        <a href="products.html">🛒 محصولات</a>
+        <a href="categories.html">📂 دسته‌بندی‌ها</a>
+        <a href="sales.html">💳 فروش</a>
+        <a href="alerts.html">⚠️ هشدارها</a>
+        <a href="settings.html">⚙️ تنظیمات</a>
+      </nav>
+    </section>
+  </main>
 
-    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-    <script src="script.js"></script>
+  <footer>
+    <p>فروشگاه من - نسخه PWA</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
