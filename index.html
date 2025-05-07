@@ -1,60 +1,66 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>صندوق فروشگاهی</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اسکنر بارکد</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
   <style>
-    body {
-      font-family: sans-serif;
-      background: #f0f0f0;
-      padding: 1rem;
-      direction: rtl;
-      max-width: 500px;
-      margin: auto;
-    }
-    input, button {
-      display: block;
+    /* استایل برای بخش نمایش ویدیو دوربین */
+    #barcode-scanner {
       width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      font-size: 1rem;
+      height: 400px;
+      background-color: #000;
     }
-    ul {
-      background: white;
-      padding: 1rem;
-      border-radius: 8px;
-      list-style: none;
+
+    /* استایل برای صفحه */
+    body {
+      font-family: 'Arial', sans-serif;
+      direction: rtl;
+      text-align: center;
+      margin-top: 20px;
     }
-    li {
-      margin-bottom: 10px;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 5px;
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
     }
-    video {
-      border-radius: 8px;
-      margin-bottom: 1rem;
+
+    #startScanButton {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #startScanButton:hover {
+      background-color: #45a049;
+    }
+
+    #barcodeResult {
+      font-size: 18px;
+      color: #333;
     }
   </style>
 </head>
 <body>
 
-  <h2>➕ افزودن محصول جدید</h2>
+  <h1>اسکنر بارکد</h1>
 
-  <input type="text" id="productName" placeholder="نام محصول" />
-  <input type="number" id="productPrice" placeholder="قیمت (تومان)" />
-  <input type="text" id="productCategory" placeholder="دسته‌بندی" />
-  <input type="text" id="productBarcode" placeholder="بارکد محصول" />
-  <button onclick="startScanner()">📷 اسکن بارکد</button>
-  <video id="scanner" width="100%" style="display: none;"></video>
-  <button onclick="addProduct()">✅ افزودن به انبار</button>
+  <!-- نمایش دوربین -->
+  <div id="barcode-scanner"></div>
 
-  <hr />
+  <!-- دکمه شروع اسکن -->
+  <button id="startScanButton">شروع اسکن</button>
 
-  <h3>📦 لیست محصولات</h3>
-  <ul id="productList"></ul>
+  <!-- نمایش بارکد اسکن شده -->
+  <p>بارکد اسکن شده: <span id="barcodeResult">هیچ بارکدی اسکن نشده</span></p>
 
+  <!-- اضافه کردن فایل جاوا اسکریپت -->
   <script src="script.js"></script>
+
 </body>
 </html>
