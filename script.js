@@ -1,54 +1,40 @@
-// بررسی اینکه آیا مرورگر از دسترسی به دوربین پشتیبانی می‌کنه
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  console.log("مرورگر شما از دسترسی به دوربین پشتیبانی می‌کند");
+// متغیر برای چک کردن وضعیت اسکن
+let isScanning = false;
 
-  // درخواست دسترسی به دوربین
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function(stream) {
-      // دوربین فعال شد، حالا می‌خواهیم ویدیو رو نمایش بدیم
-      console.log("دوربین فعال شد");
+// ایجاد نمونه Html5Qrcode برای استفاده در اسکن
+let html5QrCode = new Html5Qrcode("reader");
 
-      // شروع اسکن بارکد پس از فعال شدن دوربین
-      Quagga.init({
-        inputStream: {
-          name: "Live",
-          type: "LiveStream",
-          target: document.querySelector('#barcode-scanner'), // نمایش ویدیو داخل المنت
-          constraints: {
-            facingMode: "environment" // استفاده از دوربین پشت
-          }
-        },
-        decoder: {
-          readers: ["code_128_reader", "ean_reader", "ean_8_reader", "upc_reader"] // نوع بارکدهایی که می‌خواهیم شناسایی کنیم
-        }
-      }, function(err) {
-        if (err) {
-          console.log("خطا در راه‌اندازی اسکنر: ", err);
-          return;
-        }
-        Quagga.start(); // شروع اسکن
-      });
-
-      // در هنگام اسکن بارکد، مقدار بارکد شناسایی شده رو در صفحه نمایش بده
-      Quagga.onDetected(function(result) {
-        const barcode = result.codeResult.code;
-        document.getElementById('barcodeResult').innerText = barcode;
-        console.log("بارکد شناسایی شده: ", barcode);
-      });
-    })
-    .catch(function(err) {
-      console.log('خطا در دسترسی به دوربین:', err);
-    });
-} else {
-  console.log("مرورگر شما از دسترسی به دوربین پشتیبانی نمی‌کند.");
-}
-
-// شروع اسکن با دکمه
-document.getElementById('startScanButton').addEventListener('click', function() {
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    // درخواست دوباره برای استفاده از دوربین در صورت لزوم
-    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-      Quagga.start();
-    });
-  }
+// وقتی دکمه "شروع/توقف اسکن" کلیک می‌شود
+document.getElementById("startButton").addEventListener("click", function() {
+    if (!isScanning) {
+        // شروع اسکن
+        html5QrCode.start(
+            { facingMode: "environment" }, // استفاده از دوربین پشت گوشی
+            {
+                fps: 10,  // سرعت فریم (Frame per Second)
+                qrbox: 250,  // اندازه جعبه اسکن
+            },
+            (decodedText, decodedResult) => {
+                // وقتی بارکد اسکن شد
+                console.log(`بارکد اسکن شده: ${decodedText}`);
+                // اینجا می‌توانید هر عملیاتی که لازم دارید انجام دهید.
+                // مثلا ذخیره کردن بارکد اسکن شده یا انجام عملیات خاص
+            },
+            (errorMessage) => {
+                // نمایش خطای احتمالی در اسکن
+                console.log(`خطا در اسکن: ${errorMessage}`);
+            }
+        ).then(() => {
+            isScanning = true; // تغییر وضعیت به اسکن فعال
+        }).catch(err => {
+            console.error("خطا در شروع اسکن:", err);
+        });
+    } else {
+        // توقف اسکن
+        html5QrCode.stop().then(() => {
+            isScanning = false; // تغییر وضعیت به اسکن غیرفعال
+        }).catch((err) => {
+            console.error("خطا در توقف اسکن:", err);
+        });
+    }
 });
