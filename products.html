@@ -1,1 +1,26 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>محصولات</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>محصولات</h1>
 
+  <form id="productForm">
+    <input type="text" id="productName" placeholder="نام محصول" required />
+    <input type="number" id="productPrice" placeholder="قیمت" required />
+    <input type="text" id="productBarcode" placeholder="بارکد (اختیاری)" />
+    <select id="productCategory" required></select>
+    <button type="submit">➕ افزودن محصول</button>
+  </form>
+
+  <input type="text" id="searchInput" placeholder="جستجو در محصولات..." />
+
+  <ul id="productList"></ul>
+
+  <script src="products.js"></script>
+</body>
+</html>
