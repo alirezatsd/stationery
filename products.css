@@ -1,0 +1,50 @@
+/* طراحی فرم عمودی برای موبایل */
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.product-form label {
+  font-size: 16px;
+}
+
+.product-form input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.product-form button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-form button:hover {
+  background-color: #218838;
+}
+
+/* طراحی جدول برای نمایش محصولات */
+#productTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#productTable th,
+#productTable td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+#productTable th {
+  background-color: #f8f9fa;
+}
