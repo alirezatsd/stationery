@@ -3,71 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>مدیریت فروش</title>
+  <title>مدیریت فروشگاه</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 <body>
   <div class="container">
     <aside class="sidebar">
-      <h2>منو</h2>
-      <button onclick="showSection('dashboard')">خانه</button>
-      <button onclick="showSection('categories')">دسته‌بندی‌ها</button>
-      <button onclick="showSection('products')">محصولات</button>
-      <button onclick="showSection('sales')">فروش</button>
-      <button onclick="showSection('settings')">تنظیمات</button>
+      <button onclick="navigateTo('categories')">دسته‌بندی‌ها</button>
+      <button onclick="navigateTo('products')">محصولات</button>
+      <button onclick="navigateTo('sales')">فروش</button>
+      <button onclick="navigateTo('settings')">تنظیمات</button>
     </aside>
 
     <main class="content">
-      <!-- داشبورد -->
-      <section id="dashboard">
-        <h1>داشبورد</h1>
-        <p>آمار کلی فروش و موجودی</p>
-      </section>
+      <section id="products" class="section active">
+        <h2>مدیریت محصولات</h2>
+        <form id="productForm">
+          <label for="pname">نام محصول:</label>
+          <input type="text" id="pname" required />
 
-      <!-- دسته‌بندی‌ها -->
-      <section id="categories" class="hidden">
-        <h2>مدیریت دسته‌بندی‌ها</h2>
+          <label for="pprice">قیمت:</label>
+          <input type="number" id="pprice" required />
 
-        <form id="categoryForm" class="form">
-          <label for="name">نام دسته:</label>
-          <input type="text" id="name" required placeholder="مثلاً نوشیدنی‌ها" />
+          <label for="pstock">موجودی:</label>
+          <input type="number" id="pstock" required />
 
-          <label for="desc">توضیح (اختیاری):</label>
-          <input type="text" id="desc" placeholder="توضیح مختصر" />
+          <label for="pbarcode">بارکد:</label>
+          <div class="barcode-group">
+            <input type="text" id="pbarcode" placeholder="وارد کردن یا اسکن" />
+            <button type="button" onclick="startScanner()">📷 اسکن</button>
+          </div>
+          <div id="scanner" class="scanner hidden"></div>
 
-          <button type="submit">➕ افزودن دسته</button>
+          <button type="submit">افزودن محصول</button>
         </form>
 
-        <table class="table">
+        <table id="productList">
           <thead>
             <tr>
-              <th>نام دسته</th>
-              <th>توضیح</th>
-              <th>عملیات</th>
+              <th>نام</th>
+              <th>قیمت</th>
+              <th>موجودی</th>
+              <th>بارکد</th>
             </tr>
           </thead>
-          <tbody id="categoryTable">
-            <!-- داده‌ها اضافه میشن -->
-          </tbody>
+          <tbody></tbody>
         </table>
-      </section>
-
-      <!-- محصولات -->
-      <section id="products" class="hidden">
-        <h2>محصولات</h2>
-        <p>در حال توسعه...</p>
-      </section>
-
-      <!-- فروش -->
-      <section id="sales" class="hidden">
-        <h2>فروش به مشتری</h2>
-        <p>در حال توسعه...</p>
-      </section>
-
-      <!-- تنظیمات -->
-      <section id="settings" class="hidden">
-        <h2>تنظیمات</h2>
-        <p>در حال توسعه...</p>
       </section>
     </main>
   </div>
