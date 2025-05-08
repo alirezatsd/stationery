@@ -1,75 +1,90 @@
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(section => {
+    section.classList.add('hidden');
+  });
+  document.getElementById(id).classList.remove('hidden');
+}
+
+// دسته‌بندی‌ها
+let categories = [];
+
+document.getElementById("categoryForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const name = document.getElementById("cname").value.trim();
+  if (!name) return;
+
+  categories.push(name);
+  renderCategories();
+  this.reset();
+});
+
+function renderCategories() {
+  const list = document.getElementById("categoryList");
+  list.innerHTML = "";
+  categories.forEach((name, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${name}</td>
+      <td><button onclick="deleteCategory(${index})">❌</button></td>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function deleteCategory(index) {
+  categories.splice(index, 1);
+  renderCategories();
+}
+
+// محصولات
 let products = [];
 
 document.getElementById("productForm").addEventListener("submit", function (e) {
   e.preventDefault();
-
   const name = document.getElementById("pname").value.trim();
-  const price = parseFloat(document.getElementById("pprice").value);
-  const stock = parseInt(document.getElementById("pstock").value);
+  const category = document.getElementById("pcategory").value.trim();
+  const price = document.getElementById("pprice").value;
+  const stock = document.getElementById("pstock").value;
   const barcode = document.getElementById("pbarcode").value.trim();
 
-  if (!name || isNaN(price) || isNaN(stock)) {
-    alert("لطفاً تمام فیلدها را به‌درستی پر کنید.");
-    return;
-  }
+  if (!name || !category || !price || !stock) return;
 
-  const product = { name, price, stock, barcode };
-  products.push(product);
-  renderProductList();
+  products.push({ name, category, price, stock, barcode });
+  renderProducts();
   this.reset();
 });
 
-function renderProductList() {
-  const tbody = document.querySelector("#productList tbody");
-  tbody.innerHTML = "";
-  products.forEach(p => {
+function renderProducts() {
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
+  products.forEach((product, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${p.name}</td>
-      <td>${p.price}</td>
-      <td>${p.stock}</td>
-      <td>${p.barcode || "-"}</td>
+      <td>${product.name}</td>
+      <td>${product.category}</td>
+      <td>${product.price}</td>
+      <td>${product.stock}</td>
+      <td>${product.barcode || "-"}</td>
+      <td><button onclick="deleteProduct(${index})">❌</button></td>
     `;
-    tbody.appendChild(row);
+    list.appendChild(row);
   });
 }
 
-function navigateTo(sectionId) {
-  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-  document.getElementById(sectionId).classList.add("active");
+function deleteProduct(index) {
+  products.splice(index, 1);
+  renderProducts();
 }
 
-// بارکد اسکنر
-let scanner = null;
+// اسکن بارکد
+let scannerStream;
+document.getElementById("startScan").addEventListener("click", async function () {
+  const video = document.getElementById("scanner");
 
-function startScanner() {
-  const scannerDiv = document.getElementById("scanner");
-  scannerDiv.classList.remove("hidden");
-  if (!scanner) {
-    scanner = new Html5Qrcode("scanner");
+  try {
+    scannerStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+    video.srcObject = scannerStream;
+  } catch (err) {
+    alert("خطا در دسترسی به دوربین: " + err.message);
   }
-
-  Html5Qrcode.getCameras()
-    .then(cameras => {
-      if (cameras && cameras.length) {
-        const cameraId = cameras[0].id;
-        scanner.start(
-          cameraId,
-          { fps: 10, qrbox: { width: 250, height: 250 } },
-          (decodedText) => {
-            document.getElementById("pbarcode").value = decodedText;
-            scanner.stop().then(() => {
-              scanner.clear();
-              scannerDiv.classList.add("hidden");
-            });
-          },
-          error => {
-            // Ignore scan errors
-          }
-        );
-      }
-    })
-    .catch(err => {
-      alert("خطا در دسترسی به دوربین: " + err);
-    });
-}
+});
