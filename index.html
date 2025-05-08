@@ -1,42 +1,37 @@
-<!-- 📄 index.html — خانه (Dashboard) -->
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>خانه | فروشگاه من</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مدیریت فروشگاه</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>داشبورد فروشگاه</h1>
-  </header>
 
-  <main>
-    <section class="stats">
-      <h2>آمار سریع</h2>
+  <!-- سایدبار -->
+  <aside class="sidebar">
+    <h2 class="logo">🏪 فروشگاه من</h2>
+    <nav>
       <ul>
-        <li>فروش امروز: <span id="today-sales">۰</span> تومان</li>
-        <li>کل فروش: <span id="total-sales">۰</span> تومان</li>
-        <li>محصولات با موجودی کم: <span id="low-stock-count">۰</span></li>
+        <li><button onclick="showPage('dashboard')">خانه</button></li>
+        <li><button onclick="showPage('categories')">دسته‌بندی‌ها</button></li>
+        <li><button onclick="showPage('products')">محصولات</button></li>
+        <li><button onclick="showPage('sales')">فروش</button></li>
+        <li><button onclick="showPage('alerts')">هشدارها</button></li>
+        <li><button onclick="showPage('settings')">تنظیمات</button></li>
       </ul>
-    </section>
+    </nav>
+  </aside>
 
-    <section class="shortcuts">
-      <h2>میانبرها</h2>
-      <nav class="shortcut-links">
-        <a href="products.html">🛒 محصولات</a>
-        <a href="categories.html">📂 دسته‌بندی‌ها</a>
-        <a href="sales.html">💳 فروش</a>
-        <a href="alerts.html">⚠️ هشدارها</a>
-        <a href="settings.html">⚙️ تنظیمات</a>
-      </nav>
-    </section>
+  <!-- محتوا -->
+  <main class="content">
+    <section id="dashboard">👋 به داشبورد خوش آمدید</section>
+    <section id="categories" class="hidden">📦 مدیریت دسته‌بندی‌ها</section>
+    <section id="products" class="hidden">🛒 مدیریت محصولات</section>
+    <section id="sales" class="hidden">💵 فروش به مشتری</section>
+    <section id="alerts" class="hidden">⚠️ هشدارهای موجودی</section>
+    <section id="settings" class="hidden">⚙️ تنظیمات سیستم</section>
   </main>
-
-  <footer>
-    <p>فروشگاه من - نسخه PWA</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
