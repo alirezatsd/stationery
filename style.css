@@ -1,15 +1,84 @@
 body {
-    font-family: sans-serif;
-    text-align: center;
-    direction: rtl;
-    background: #f4f4f4;
-    padding: 2rem;
+  margin: 0;
+  font-family: 'Vazirmatn', sans-serif;
+  display: flex;
+  background-color: #f0f2f5;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #1e1e2f;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar .logo {
+  margin-bottom: 30px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin: 15px 0;
+}
+
+.sidebar nav ul li button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  text-align: right;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar nav ul li button:hover {
+  background-color: #2d2d44;
+  border-radius: 5px;
+}
+
+.content {
+  margin-right: 220px;
+  padding: 20px;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ریسپانسیو برای موبایل */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 180px;
+    position: fixed;
+    height: auto;
+    top: 0;
+    right: 0;
+    z-index: 10;
   }
-  
-  button {
-    font-size: 1.2rem;
-    padding: 1rem;
-    margin: 1rem;
-    cursor: pointer;
+
+  .content {
+    margin-right: 180px;
   }
-  
+
+  .sidebar .logo {
+    font-size: 18px;
+  }
+
+  .sidebar nav ul li button {
+    font-size: 14px;
+  }
+}
