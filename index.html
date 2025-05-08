@@ -1,37 +1,76 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مدیریت فروشگاه</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مدیریت فروش</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>منو</h2>
+      <button onclick="showSection('dashboard')">خانه</button>
+      <button onclick="showSection('categories')">دسته‌بندی‌ها</button>
+      <button onclick="showSection('products')">محصولات</button>
+      <button onclick="showSection('sales')">فروش</button>
+      <button onclick="showSection('settings')">تنظیمات</button>
+    </aside>
 
-  <!-- سایدبار -->
-  <aside class="sidebar">
-    <h2 class="logo">🏪 فروشگاه من</h2>
-    <nav>
-      <ul>
-        <li><button onclick="showPage('dashboard')">خانه</button></li>
-        <li><button onclick="showPage('categories')">دسته‌بندی‌ها</button></li>
-        <li><button onclick="showPage('products')">محصولات</button></li>
-        <li><button onclick="showPage('sales')">فروش</button></li>
-        <li><button onclick="showPage('alerts')">هشدارها</button></li>
-        <li><button onclick="showPage('settings')">تنظیمات</button></li>
-      </ul>
-    </nav>
-  </aside>
+    <main class="content">
+      <!-- داشبورد -->
+      <section id="dashboard">
+        <h1>داشبورد</h1>
+        <p>آمار کلی فروش و موجودی</p>
+      </section>
 
-  <!-- محتوا -->
-  <main class="content">
-    <section id="dashboard">👋 به داشبورد خوش آمدید</section>
-    <section id="categories" class="hidden">📦 مدیریت دسته‌بندی‌ها</section>
-    <section id="products" class="hidden">🛒 مدیریت محصولات</section>
-    <section id="sales" class="hidden">💵 فروش به مشتری</section>
-    <section id="alerts" class="hidden">⚠️ هشدارهای موجودی</section>
-    <section id="settings" class="hidden">⚙️ تنظیمات سیستم</section>
-  </main>
+      <!-- دسته‌بندی‌ها -->
+      <section id="categories" class="hidden">
+        <h2>مدیریت دسته‌بندی‌ها</h2>
+
+        <form id="categoryForm" class="form">
+          <label for="name">نام دسته:</label>
+          <input type="text" id="name" required placeholder="مثلاً نوشیدنی‌ها" />
+
+          <label for="desc">توضیح (اختیاری):</label>
+          <input type="text" id="desc" placeholder="توضیح مختصر" />
+
+          <button type="submit">➕ افزودن دسته</button>
+        </form>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>نام دسته</th>
+              <th>توضیح</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody id="categoryTable">
+            <!-- داده‌ها اضافه میشن -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- محصولات -->
+      <section id="products" class="hidden">
+        <h2>محصولات</h2>
+        <p>در حال توسعه...</p>
+      </section>
+
+      <!-- فروش -->
+      <section id="sales" class="hidden">
+        <h2>فروش به مشتری</h2>
+        <p>در حال توسعه...</p>
+      </section>
+
+      <!-- تنظیمات -->
+      <section id="settings" class="hidden">
+        <h2>تنظیمات</h2>
+        <p>در حال توسعه...</p>
+      </section>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
