@@ -1,57 +1,92 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>مدیریت فروشگاه</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
+  <div class="app">
     <aside class="sidebar">
-      <button onclick="navigateTo('categories')">دسته‌بندی‌ها</button>
-      <button onclick="navigateTo('products')">محصولات</button>
-      <button onclick="navigateTo('sales')">فروش</button>
-      <button onclick="navigateTo('settings')">تنظیمات</button>
+      <h2>منو</h2>
+      <button onclick="showSection('dashboardSection')">خانه</button>
+      <button onclick="showSection('categoriesSection')">دسته‌بندی‌ها</button>
+      <button onclick="showSection('productsSection')">محصولات</button>
+      <button onclick="showSection('salesSection')">فروش</button>
+      <button onclick="showSection('settingsSection')">تنظیمات</button>
     </aside>
 
-    <main class="content">
-      <section id="products" class="section active">
-        <h2>مدیریت محصولات</h2>
+    <div class="content">
+      <!-- خانه -->
+      <div id="dashboardSection" class="section">
+        <h2>خانه</h2>
+        <p>آمار فروش و موجودی و میانبرها</p>
+      </div>
+
+      <!-- دسته‌بندی‌ها -->
+      <div id="categoriesSection" class="section hidden">
+        <h2>دسته‌بندی‌ها</h2>
+        <form id="categoryForm">
+          <label for="cname">نام دسته‌بندی:</label>
+          <input type="text" id="cname" required>
+          <button type="submit">افزودن دسته‌بندی</button>
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>نام دسته‌بندی</th>
+              <th>حذف</th>
+            </tr>
+          </thead>
+          <tbody id="categoryList"></tbody>
+        </table>
+      </div>
+
+      <!-- محصولات -->
+      <div id="productsSection" class="section hidden">
+        <h2>محصولات</h2>
         <form id="productForm">
-          <label for="pname">نام محصول:</label>
-          <input type="text" id="pname" required />
-
-          <label for="pprice">قیمت:</label>
-          <input type="number" id="pprice" required />
-
-          <label for="pstock">موجودی:</label>
-          <input type="number" id="pstock" required />
-
-          <label for="pbarcode">بارکد:</label>
-          <div class="barcode-group">
-            <input type="text" id="pbarcode" placeholder="وارد کردن یا اسکن" />
-            <button type="button" onclick="startScanner()">📷 اسکن</button>
-          </div>
-          <div id="scanner" class="scanner hidden"></div>
-
+          <label>نام محصول:</label>
+          <input type="text" id="pname" required>
+          <label>دسته‌بندی:</label>
+          <input type="text" id="pcategory" required>
+          <label>قیمت:</label>
+          <input type="number" id="pprice" required>
+          <label>موجودی:</label>
+          <input type="number" id="pstock" required>
+          <label>بارکد:</label>
+          <input type="text" id="pbarcode">
           <button type="submit">افزودن محصول</button>
         </form>
-
-        <table id="productList">
+        <table>
           <thead>
             <tr>
               <th>نام</th>
+              <th>دسته‌بندی</th>
               <th>قیمت</th>
               <th>موجودی</th>
               <th>بارکد</th>
+              <th>حذف</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody id="productList"></tbody>
         </table>
-      </section>
-    </main>
+      </div>
+
+      <!-- فروش -->
+      <div id="salesSection" class="section hidden">
+        <h2>فروش</h2>
+        <button id="startScan">اسکن بارکد</button>
+        <video id="scanner" width="100%" autoplay></video>
+      </div>
+
+      <!-- تنظیمات -->
+      <div id="settingsSection" class="section hidden">
+        <h2>تنظیمات</h2>
+        <p>زبان، واحد پول و قالب فاکتور</p>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
